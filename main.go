@@ -4,12 +4,7 @@
 
 package main
 
-import (
-	"fmt"
-)
-
 var GroupIds []int
-
 
 // Get group ids and store them in the global variable GroupIds
 func retrieveGroupIds(groups []int) {
@@ -27,8 +22,11 @@ func CheckGroup(groups []int, groupID int) bool {
 	for _, x := range GroupIds {
 		if x == groupID {
 			exists = true
-			fmt.Println("Group is in list of monitored groups")
 		}
 	}
 	return exists
+}
+
+func main () {
+	
 }
