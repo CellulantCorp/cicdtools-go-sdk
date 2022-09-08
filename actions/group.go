@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"strconv"
 
-	"gitlab.com/ronmachoka/project-lookup/requests"
+	"thanos.cellulant.africa/cellulant-public/ci-cd-tools/packages/go/project-lookup/requests"
 )
 
 var GroupIds []int
