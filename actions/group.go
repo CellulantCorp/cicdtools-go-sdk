@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"strconv"
+	"strings"
 
 	"thanos.cellulant.africa/cellulant-public/ci-cd-tools/packages/go/project-lookup/requests"
 )
@@ -33,11 +34,19 @@ func GetGroupName(groupID int, authToken string) string {
 
 func CheckGroup(groups []string, groupNamespace string) bool {
 	// retrieveGroupIds(groups)
+	group := splitNamespace(groupNamespace)
 	exists := false
 	for _, x := range groups {
-		if x == groupNamespace {
+		if x == group {
 			exists = true
 		}
 	}
 	return exists
+}
+
+func splitNamespace(namespace string) string {
+	// Split the namespace into group and project
+	splitNamespace := strings.Split(namespace, "/")
+	group := splitNamespace[1]
+	return group
 }
