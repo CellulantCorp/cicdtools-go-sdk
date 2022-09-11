@@ -8,7 +8,7 @@ import (
 	"fmt"
 	"strconv"
 
-	"thanos.cellulant.africa/cellulant-public/ci-cd-tools/packages/go/project-lookup/v2/requests"
+	"thanos.cellulant.africa/cellulant-public/ci-cd-tools/packages/go/project-lookup/requests"
 )
 
 func GetProjectName(projectID int, authToken string) string {
