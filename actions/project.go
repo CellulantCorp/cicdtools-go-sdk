@@ -8,11 +8,11 @@ import (
 	"fmt"
 	"strconv"
 
-	"thanos.cellulant.africa/cellulant-public/ci-cd-tools/packages/go/gitlab-api-tools/requests"
+	"thanos.cellulant.africa/rmachoka/gitlab-api-tools/requests"
 )
 
 func GetProjectName(projectID int, authToken string) string {
-	res := requests.SendRequest(fmt.Sprintf("%s%s%s", GitlabUrl, "api/v4/projects/", strconv.Itoa(projectID)), "GET", authToken)
+	_, res := requests.SendGetRequest(fmt.Sprintf("%s%s%s", GitlabUrl, "api/v4/projects/", strconv.Itoa(projectID)))
 	var payload interface{}
 
 	json.Unmarshal(res, &payload)         // Convert JSON data into interface{} type
