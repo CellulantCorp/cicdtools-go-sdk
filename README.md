@@ -1,4 +1,4 @@
-## Project-Lookup
+## Gitlab-api-tools
 
 A simple reusable package which does the following :
 
