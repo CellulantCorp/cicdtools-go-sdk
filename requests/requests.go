@@ -17,8 +17,6 @@ import (
 	"time"
 )
 
-var Config = config.GetConfig()
-
 func SendGetRequest(url string) (http.Header, []byte) {
 	client := &http.Client{
 		Timeout: time.Second * 10,
@@ -31,7 +29,7 @@ func SendGetRequest(url string) (http.Header, []byte) {
 	req.Header.Set("user-agent", "GitlabScannerAPI")
 	req.Header.Set("Accept", "*/*")
 	req.Header.Set("Keep-Alive", "timeout=30, max=60")
-	req.Header.Add("Authorization", fmt.Sprintf("%s%s", "Bearer ", Config.Gitlab.Info.AuthToken))
+	req.Header.Add("Authorization", fmt.Sprintf("%s%s", "Bearer ", config.GitlabauthToken))
 
 	response, err := client.Do(req)
 	if err != nil {
@@ -58,7 +56,7 @@ func SendPostRequest(url string, requestBody io.Reader) (http.Header, []byte) {
 	req.Header.Set("user-agent", "GitlabScannerAPI")
 	req.Header.Set("Accept", "*/*")
 	//req.Header.Set("Keep-Alive", "timeout=30, max=60")
-	req.Header.Add("Authorization", fmt.Sprintf("%s%s", "Bearer ", Config.Gitlab.Info.AuthToken))
+	req.Header.Add("Authorization", fmt.Sprintf("%s%s", "Bearer ", config.GitlabauthToken))
 
 	response, err := client.Do(req)
 	if err != nil {
@@ -87,7 +85,7 @@ func SendPutRequest(url string, requestBody io.Reader) (http.Header, []byte) {
 	req.Header.Set("user-agent", "GitlabScannerAPI")
 	req.Header.Set("Accept", "*/*")
 	req.Header.Set("Keep-Alive", "timeout=30, max=60")
-	req.Header.Add("Authorization", fmt.Sprintf("%s%s", "Bearer ", Config.Gitlab.Info.AuthToken))
+	req.Header.Add("Authorization", fmt.Sprintf("%s%s", "Bearer ", config.GitlabauthToken))
 
 	response, err := client.Do(req)
 	if err != nil {
@@ -113,7 +111,7 @@ func SendDeleteRequest(url string, requestBody io.Reader) (http.Header, []byte) 
 	req.Header.Set("user-agent", "GitlabScannerAPI")
 	req.Header.Set("Accept", "*/*")
 	req.Header.Set("Keep-Alive", "timeout=30, max=60")
-	req.Header.Add("Authorization", fmt.Sprintf("%s%s", "Bearer ", Config.Gitlab.Info.AuthToken))
+	req.Header.Add("Authorization", fmt.Sprintf("%s%s", "Bearer ", config.GitlabauthToken))
 
 	response, err := client.Do(req)
 	if err != nil {
