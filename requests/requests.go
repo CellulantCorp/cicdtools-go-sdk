@@ -9,6 +9,7 @@ package requests
 
 import (
 	"fmt"
+	"gitlab-scanner-go/config"
 	"io"
 	"io/ioutil"
 	"net/http"
