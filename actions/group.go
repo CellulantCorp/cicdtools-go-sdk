@@ -6,7 +6,7 @@ import (
 	"strconv"
 	"strings"
 
-	"thanos.cellulant.africa/rmachoka/gitlab-api-tools/requests"
+	"github.com/CellulantCorp/cicdtools-go-sdk/requests"
 )
 
 // var GroupIds []int

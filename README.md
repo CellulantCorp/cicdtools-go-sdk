@@ -16,3 +16,10 @@ A simple reusable package which does the following :
 #### 3. Get a group's name
 
 ``` actions.GetGroupName(group_ID, "<git-token>") ```
+
+#### 4. Send Curated HTTP Requests to gitlab
+
+``` request.SendGetRequest(url string) (http.Header, []byte) ```
+
+``` request.SendPostRequest(url string, requestBody io.Reader) (http.Header, []byte) ```
+

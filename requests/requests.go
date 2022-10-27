@@ -13,7 +13,6 @@ import (
 	"io/ioutil"
 	"net/http"
 	"strconv"
-	"thanos.cellulant.africa/ops-templates/ci-cd-tools/ci-cd/gitlab-scanner-go/config"
 	"time"
 )
 

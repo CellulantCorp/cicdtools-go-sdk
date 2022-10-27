@@ -8,7 +8,7 @@ import (
 	"fmt"
 	"strconv"
 
-	"thanos.cellulant.africa/rmachoka/gitlab-api-tools/requests"
+	"github.com/CellulantCorp/cicdtools-go-sdk/requests"
 )
 
 func GetProjectName(projectID int, authToken string) string {
