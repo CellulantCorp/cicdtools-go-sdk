@@ -62,7 +62,7 @@ func SendPostRequest(url string, requestBody io.Reader) (http.Header, []byte) {
 	response, err := client.Do(req)
 	if err != nil {
 		//return fmt.Errorf("Got error %s", err.Error())
-		fmt.Errorf(" Error:  %s", err.Error())
+		fmt.Println(" Error: ", err.Error())
 		return nil, nil
 	}
 	defer response.Body.Close()
