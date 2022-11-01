@@ -9,6 +9,7 @@ package requests
 
 import (
 	"fmt"
+	"github.com/sirupsen/logrus"
 	"gitlab-scanner-go/config"
 	"io"
 	"io/ioutil"
@@ -66,9 +67,16 @@ func SendPostRequest(url string, requestBody io.Reader) (http.Header, []byte) {
 	CheckRateLimit(response)
 
 	body, err := ioutil.ReadAll(response.Body)
-	//fmt.Println("RESP: " , string(body))
-	//fmt.Println("CODE: " , response.StatusCode)
-	return response.Header, body
+
+	// Check for 200 response code before returning the body
+	if response.StatusCode == 200 {
+		return response.Header, body
+	} else {
+		logrus.Errorln(response.StatusCode, " - Error sending POST request. ", string(body))
+		return response.Header, nil
+	}
+
+	//return response.Header, body
 }
 
 func SendPutRequest(url string, requestBody io.Reader) (http.Header, []byte) {
