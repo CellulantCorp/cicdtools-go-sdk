@@ -69,7 +69,8 @@ func SendPostRequest(url string, requestBody io.Reader) (http.Header, []byte) {
 	body, err := ioutil.ReadAll(response.Body)
 
 	// Check for 200 response code before returning the body
-	if response.StatusCode == 200 {
+	statusOK := response.StatusCode >= 200 && response.StatusCode < 300
+	if statusOK {
 		return response.Header, body
 	} else {
 		logrus.Errorln(response.StatusCode, " - Error sending POST request. ", string(body))
