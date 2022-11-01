@@ -50,8 +50,7 @@ func SendPostRequest(url string, requestBody io.Reader) (http.Header, []byte) {
 
 	req, err := http.NewRequest("POST", url, requestBody)
 	if err != nil {
-		fmt.Errorf(" Error:  %s", err.Error())
-		return nil, nil
+		//return nil, fmt.Errorf("Got error %s", err.Error())
 	}
 
 	req.Header.Set("Content-Type", "application/json")
@@ -63,6 +62,8 @@ func SendPostRequest(url string, requestBody io.Reader) (http.Header, []byte) {
 	response, err := client.Do(req)
 	if err != nil {
 		//return fmt.Errorf("Got error %s", err.Error())
+		fmt.Errorf(" Error:  %s", err.Error())
+		return nil, nil
 	}
 	defer response.Body.Close()
 	CheckRateLimit(response)
