@@ -50,7 +50,8 @@ func SendPostRequest(url string, requestBody io.Reader) (http.Header, []byte) {
 
 	req, err := http.NewRequest("POST", url, requestBody)
 	if err != nil {
-		//return nil, fmt.Errorf("Got error %s", err.Error())
+		fmt.Errorf(" Error:  %s", err.Error())
+		return nil, nil
 	}
 
 	req.Header.Set("Content-Type", "application/json")
