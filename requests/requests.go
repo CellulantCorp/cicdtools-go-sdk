@@ -9,16 +9,17 @@ package requests
 
 import (
 	"fmt"
-	"github.com/sirupsen/logrus"
 	"gitlab-scanner-go/config"
 	"io"
 	"io/ioutil"
 	"net/http"
 	"strconv"
 	"time"
+
+	"github.com/sirupsen/logrus"
 )
 
-func SendGetRequest(url string) (http.Header, []byte) {
+func SendGetRequest(url string) (*http.Response, []byte) {
 	client := &http.Client{
 		Timeout: time.Second * 10,
 	}
@@ -40,10 +41,11 @@ func SendGetRequest(url string) (http.Header, []byte) {
 	CheckRateLimit(response)
 
 	body, err := ioutil.ReadAll(response.Body)
-	return response.Header, body
+	// return response.Header, body
+	return response, body
 }
 
-func SendPostRequest(url string, requestBody io.Reader) (http.Header, []byte) {
+func SendPostRequest(url string, requestBody io.Reader) (*http.Response, []byte) {
 	client := &http.Client{
 		Timeout: time.Second * 10,
 	}
@@ -73,16 +75,16 @@ func SendPostRequest(url string, requestBody io.Reader) (http.Header, []byte) {
 	// Check for 200 response code before returning the body
 	statusOK := response.StatusCode >= 200 && response.StatusCode < 300
 	if statusOK {
-		return response.Header, body
+		return response, body
 	} else {
 		logrus.Errorln(response.StatusCode, " - Error sending POST request. ", string(body))
-		return response.Header, nil
+		return response, nil
 	}
 
 	//return response.Header, body
 }
 
-func SendPutRequest(url string, requestBody io.Reader) (http.Header, []byte) {
+func SendPutRequest(url string, requestBody io.Reader) (*http.Response, []byte) {
 	client := &http.Client{
 		Timeout: time.Second * 10,
 	}
@@ -106,10 +108,10 @@ func SendPutRequest(url string, requestBody io.Reader) (http.Header, []byte) {
 	CheckRateLimit(response)
 
 	body, err := ioutil.ReadAll(response.Body)
-	return response.Header, body
+	return response, body
 }
 
-func SendDeleteRequest(url string, requestBody io.Reader) (http.Header, []byte) {
+func SendDeleteRequest(url string, requestBody io.Reader) (*http.Response, []byte) {
 	client := &http.Client{
 		Timeout: time.Second * 10,
 	}
@@ -132,7 +134,7 @@ func SendDeleteRequest(url string, requestBody io.Reader) (http.Header, []byte) 
 	CheckRateLimit(response)
 
 	body, err := ioutil.ReadAll(response.Body)
-	return response.Header, body
+	return response, body
 }
 
 // CheckRateLimit - Check for a 429 response code - which indicates a Rate Limit exceeded,
