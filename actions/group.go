@@ -7,6 +7,7 @@ import (
 	"strings"
 
 	"github.com/CellulantCorp/cicdtools-go-sdk/requests"
+	"github.com/sirupsen/logrus"
 )
 
 // var GroupIds []int
@@ -48,5 +49,6 @@ func splitNamespace(namespace string) string {
 	// Split the namespace into group and project
 	splitNamespace := strings.Split(namespace, "/")
 	group := splitNamespace[1]
+	logrus.Infoln("Group: ", group)
 	return group
 }
