@@ -10,8 +10,11 @@ import (
 	"github.com/sirupsen/logrus"
 )
 
+// var GroupIds []int
+var GitlabUrl = "https://thanos.cellulant.africa/"
+
 func GetGroupName(groupID int, authToken string) string {
-	_, res := requests.SendGetRequest(fmt.Sprintf("%s%s%s", config.GitlabUrl, "api/v4/groups/", strconv.Itoa(groupID)))
+	_, res := requests.SendGetRequest(fmt.Sprintf("%s%s%s", GitlabUrl, "api/v4/groups/", strconv.Itoa(groupID)))
 	var payload interface{}
 
 	json.Unmarshal(res, &payload)         // Convert JSON data into interface{} type
@@ -48,20 +51,4 @@ func splitNamespace(namespace string) string {
 	group := splitNamespace[1]
 	logrus.Infoln("Group: ", group)
 	return group
-}
-
-func ToggleCICD(projectID int, enabled bool) {
-	if enabled {
-		// Enable CICD
-		reqBody := strings.NewReader("{\"jobs_enabled\": true}")
-		requests.SendPutRequest(config.GitlabUrl+"api/"+config.GitlabapiVersion+"/projects/"+strconv.Itoa(projectID), reqBody)
-		fmt.Println("CI/CD Enabled for project ", projectID)
-
-	} else {
-		// Disable CICD
-		reqBody := strings.NewReader("{\"jobs_enabled\": false}")
-		requests.SendPutRequest(config.GitlabUrl+"api/"+config.GitlabapiVersion+"/projects/"+strconv.Itoa(projectID), reqBody)
-		fmt.Println("CI/CD Disabled for project ", projectID)
-	}
-
 }
