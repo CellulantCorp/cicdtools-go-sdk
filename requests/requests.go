@@ -81,7 +81,6 @@ func SendPostRequest(url string, requestBody io.Reader) (*http.Response, []byte)
 		return response, nil
 	}
 
-	//return response.Header, body
 }
 
 func SendPutRequest(url string, requestBody io.Reader) (*http.Response, []byte) {
@@ -108,7 +107,20 @@ func SendPutRequest(url string, requestBody io.Reader) (*http.Response, []byte) 
 	CheckRateLimit(response)
 
 	body, err := ioutil.ReadAll(response.Body)
-	return response, body
+// 	return response, body
+	
+	// Check for 200 response code before returning the body
+	statusOK := response.StatusCode >= 200 && response.StatusCode < 300
+	if statusOK {
+		return response, body
+	} else {
+		// retry request
+		http.NewRequest("PUT", url, requestBody)
+
+		logrus.Errorln(response.StatusCode, " - Error sending POST request. ", string(body))
+		return response, nil
+	}
+	
 }
 
 func SendDeleteRequest(url string, requestBody io.Reader) (*http.Response, []byte) {
